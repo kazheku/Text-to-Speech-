@@ -1,18 +1,13 @@
 <h1> ¡Text-To-Speech! </h1>
 
-## Explanation 
+## 📃 Explanation 
 
-This 🔵 **Python code** 🔵 uses the **gTTS (Google Text-to-Speech) library** to generate an audio file from the given text.
+🔸 This is a 🔵**Python script**🔵 that creates a graphical user interface (GUI) for converting text to speech using the gTTS library. The GUI has several widgets, including a text entry box, a language selection dropdown menu, a speed selection dropdown menu, a "Save As" button for saving the generated audio file, and an "Exit" button for closing the GUI.
 
-First, it imports the **gt** (greater than) operator and the **gTTS** class from the **gtts** module.
+🔸 The user enters the text they want to convert into the text entry box, selects the desired language and speed from the dropdown menus, and clicks the "Save As" button to save the audio file in the desired location and format. If there is an error during the file saving process, the GUI displays an error message.
 
-It then sets the **language** variable to the desired language code (e.g. 'es' for Spanish).
+🔸 The gTTS library is used to generate the audio file. It takes the input text, selected language, and selected speed as parameters and returns an audio file in MP3 format. The file is then saved using the filedialog.asksaveasfilename method from the tkinter library.
 
-Next, it sets the **text** variable to the input text that will be converted to speech.
+🔸 Overall, this script provides an easy-to-use interface for generating audio files from text. The user can select their preferred language and speed, and save the audio file in the desired location and format.
 
-Finally, it creates an instance of the **gTTS** class by passing the input text and language code as arguments, along with the **slow** parameter set to **False** to generate audio at normal speed. 
-The resulting gTTS object can then be saved to an audio file using its **save()** method.
-
-⭕ Note that the gTTS library requires an internet connection to generate the audio file, as it sends the text to the Google Text-to-Speech API to generate the audio.
-
-⚠ This code is in beta version, I will keep working on it to create a more professional GUI and improve the code.
+⚠ This code is in beta version.
