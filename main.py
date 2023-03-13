@@ -1,55 +1,71 @@
-from gtts import gTTS
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import *
 from tkinter import filedialog
+from tkinter.ttk import Combobox
+import pyttsx3
 
-class TextToSpeechGUI:
-    def __init__(self, master):
-        self.master = master
-        master.title("Text to Speech Converter")
+root = Tk()
+root.title("Text to speech made by Kazsuner")
+root.geometry("900x450")
+root.resizable(False, False)
+root.configure(bg="#6643A4")
 
-        # Crear los widgets de la interfaz
-        self.text_label = tk.Label(master, text="Introduzca el texto:")
-        self.text_entry = tk.Entry(master, width=50)
-        self.language_label = tk.Label(master, text="Idioma:")
-        self.language_menu = tk.OptionMenu(master, tk.StringVar(), "es", "en", "fr", "de", "it")
-        self.speed_label = tk.Label(master, text="Velocidad:")
-        self.speed_menu = tk.OptionMenu(master, tk.BooleanVar(), False, True)
-        self.save_button = tk.Button(master, text="Guardar como...", command=self.save_audio)
-        self.exit_button = tk.Button(master, text="Salir", command=self.close_window)
+engine = pyttsx3.init()
 
-        # Colocar los widgets en la interfaz
-        self.text_label.grid(row=0, column=0, sticky="w")
-        self.text_entry.grid(row=1, column=0, columnspan=2, padx=5, pady=5)
-        self.language_label.grid(row=2, column=0, sticky="w")
-        self.language_menu.grid(row=3, column=0, padx=5, pady=5)
-        self.speed_label.grid(row=2, column=1, sticky="w")
-        self.speed_menu.grid(row=3, column=1, padx=5, pady=5)
-        self.save_button.grid(row=4, column=0, pady=10)
-        self.exit_button.grid(row=4, column=1, pady=10)
+def speaknow():
+    text = text_area.get("1.0", END).strip()
+    gender = gender_combobox.get()
+    speed = speed_combobox.get()
+    rate = {"Fast": 250, "Normal": 150, "Slow": 60}[speed]
 
+    voices = engine.getProperty('voices')
+    voice = {"Male": voices[0].id, "Female": voices[1].id}[gender]
+    engine.setProperty('voice', voice)
+    engine.setProperty('rate', rate)
+    engine.say(text)
+    engine.runAndWait()
 
-    def save_audio(self):
-        # Obtener el objeto de conversión de texto a voz
-        text = self.text_entry.get()
-        language = self.language_menu.cget("text")
-        speed = self.speed_menu.cget("text")
-        speech = gTTS(text=text, lang=language, slow=speed)
+def download():
+    text = text_area.get("1.0", END).strip()
+    gender = gender_combobox.get()
+    speed = speed_combobox.get()
+    rate = {"Fast": 250, "Normal": 150, "Slow": 60}[speed]
 
-        # Obtener el nombre de archivo y la ubicación para guardar el archivo de audio
-        file_path = filedialog.asksaveasfilename(defaultextension=".mp3", filetypes=(("Archivos MP3", "*.mp3"),))
+    voices = engine.getProperty('voices')
+    voice = {"Male": voices[0].id, "Female": voices[1].id}[gender]
+    engine.setProperty('voice', voice)
+    engine.setProperty('rate', rate)
+    filename = filedialog.asksaveasfilename(defaultextension='.mp3')
+    if filename:
+        engine.save_to_file(text, filename)
+        engine.runAndWait()
 
-        # Guardar el archivo de audio
-        try:
-            speech.save(file_path)
-            messagebox.showinfo("Guardar archivo", "Archivo guardado exitosamente!")
-        except Exception as e:
-            messagebox.showerror("Guardar archivo", f"No se pudo guardar el archivo: {e}")
+# Top Frame
+Top_frame = Frame(root, bg="white", width=900, height=100)
+Top_frame.place(x=0, y=0)
 
-    def close_window(self):
-        self.master.destroy()
+Label(Top_frame, text="Text to speech", font="arial 30 bold", bg="white", fg="black").place(x=20, y=30)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    gui = TextToSpeechGUI(root)
-    root.mainloop()
+# Text area - Settings
+text_area = Text(root, font="Verdana 15", bg="white", relief=GROOVE, wrap=WORD)
+text_area.place(x=20, y=150, width=500, height=250)
+
+# Gender - Settings
+gender_combobox = Combobox(root, values=['Male', 'Female'], font="Arial 12", state='readonly', width=10)
+gender_combobox.place(x=550, y=200)
+gender_combobox.current(0)
+
+# Speed - Settings
+speed_combobox = Combobox(root, values=['Fast', 'Normal', 'Slow'], font="Arial 12", state='readonly', width=10)
+speed_combobox.place(x=730, y=200)
+speed_combobox.current(1)
+
+# Speak btn - Settings
+btn = Button(root, text="Speak", width=10, bg="#4B4453", fg="white" ,font="Arial 14 bold", command=speaknow)
+btn.place(x=550, y=360)
+
+# Save btn - Settings
+save = Button(root, text="Save", width=10, bg="#4B4453", fg="white",font="Arial 14 bold", command=download)
+save.place(x=730, y=360)
+
+root.mainloop()
