@@ -2,12 +2,30 @@
 
 ## 📃 Explanation 
 
-🔸 This is a 🔵**Python script**🔵 that creates a graphical user interface (GUI) for converting text to speech using the gTTS library. The GUI has several widgets, including a text entry box, a language selection dropdown menu, a speed selection dropdown menu, a "Save As" button for saving the generated audio file, and an "Exit" button for closing the GUI.
+**Hi guys, I have gone back to work on my "Text to speech" application and made some changes.**
 
-🔸 The user enters the text they want to convert into the text entry box, selects the desired language and speed from the dropdown menus, and clicks the "Save As" button to save the audio file in the desired location and format. If there is an error during the file saving process, the GUI displays an error message.
+🔹 I have created a GUI for it.
 
-🔸 The gTTS library is used to generate the audio file. It takes the input text, selected language, and selected speed as parameters and returns an audio file in MP3 format. The file is then saved using the filedialog.asksaveasfilename method from the tkinter library.
+🔹 The application has a text box, where we can write the text we want.
 
-🔸 Overall, this script provides an easy-to-use interface for generating audio files from text. The user can select their preferred language and speed, and save the audio file in the desired location and format.
+🔹 We have the option to choose between male and female voice.
 
-⚠ This code is in beta version.
+🔹 We can choose the speed when speaking between: Fast, Normal and Slow.
+
+🔹 It has a button called "Speak": The function of this button is to listen to the text we have written before.
+
+🔹 It has a button called "Save": The function of this button is to save the text we have written converted to voice, an example of saving is: text.mp3
+
+
+
+
+https://user-images.githubusercontent.com/115459058/224720709-7b0d5415-17e7-4af0-af42-0dfc6c482049.mp4
+
+
+
+
+
+
+
+
+
